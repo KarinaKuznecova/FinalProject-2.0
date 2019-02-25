@@ -1,6 +1,6 @@
 import data.Storage;
 import org.junit.Test;
-import service.Drink;
+import service.Product;
 import service.Worker;
 
 import java.math.BigDecimal;
@@ -11,25 +11,21 @@ import static junit.framework.Assert.*;
 
 public class ActionTest {
 
+    Worker worker = new Worker();
+    Product product = worker.createNew("Chocolate milk", BigDecimal.valueOf(100), DRINKS);
+
     @Test
     public void shouldCreateNew() {
         System.out.println("Test shouldCreateNew");
-        Worker worker = new Worker();
-        worker.createNew("Whiskey Jameson", BigDecimal.valueOf(20), DRINKS);
-        worker.getById(0);
-
         assertNotNull(worker.getById(0));
     }
 
     @Test
     public void shouldRemove() {
         System.out.println("Test shouldRemove");
-        Worker worker = new Worker();
-        worker.createNew("Grape Juice", BigDecimal.valueOf(20), DRINKS);
-        worker.createNew("Milkshake", BigDecimal.valueOf(210), DAIRY);
         long startingSize = Storage.allProducts.size();
-        long IdToRemove = worker.createNew("Whiskey Jack Daniels", BigDecimal.valueOf(20), DRINKS).getId();
-        worker.deleteById(IdToRemove);
+        worker.createNew("Milkshake", BigDecimal.valueOf(18.20), DAIRY);
+        worker.deleteById(1);
         long actualSize = Storage.allProducts.size();
 
         assertEquals(startingSize, actualSize);
@@ -38,20 +34,29 @@ public class ActionTest {
     @Test
     public void listByCategory() {
         System.out.println("Test shouldListCategory");
-        Worker worker = new Worker();
-        worker.createNew("Juice", BigDecimal.valueOf(20), DRINKS);
-        worker.createNew("Milk", BigDecimal.valueOf(210), DAIRY);
-        worker.createNew("Whiskey", BigDecimal.valueOf(20), DRINKS);
+        worker.createNew("Apple Juice", BigDecimal.valueOf(20), DRINKS);
+        worker.createNew("Extra Fresh Milk", BigDecimal.valueOf(210), DAIRY);
+        worker.createNew("Water", BigDecimal.valueOf(20), DRINKS);
         worker.listByCategory(DRINKS);
     }
 
     @Test
     public void listAll() {
         System.out.println("Test shouldListAll");
-        Worker worker = new Worker();
-        worker.createNew("Beer", BigDecimal.valueOf(20), DRINKS);
+        worker.createNew("Fresh Juice", BigDecimal.valueOf(20), DRINKS);
         worker.createNew("Cheese", BigDecimal.valueOf(210), DAIRY);
-        worker.createNew("Cola", BigDecimal.valueOf(20), DRINKS);
+        worker.createNew("Whiskey", BigDecimal.valueOf(20), DRINKS);
         worker.listAll();
+    }
+
+    @Test
+    public void shouldSetDescription() {
+        System.out.println("Test shouldSetDescription");
+        product.setDescription("Fresh milk from lovely cows");
+        product.setDiscount(BigDecimal.valueOf(50));
+        String expected = "Fresh milk from lovely cows";
+        String actual = product.getDescription();
+        System.out.println(product);
+        assertEquals(expected, actual);
     }
 }

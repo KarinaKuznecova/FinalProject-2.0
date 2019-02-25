@@ -3,7 +3,7 @@ package service;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class Product {
+public abstract class Product {
     public static Long productsTotal = 0l;
     private String name;
     private Long Id;
@@ -22,7 +22,7 @@ public class Product {
         return name;
     }
 
-    public void setName(String name) {
+    void setName(String name) {
         this.name = name;
     }
 
@@ -30,7 +30,7 @@ public class Product {
         return Id;
     }
 
-    public void setId() {
+    void setId() {
         Id = productsTotal;
         productsTotal++;
     }
@@ -40,19 +40,19 @@ public class Product {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    void setPrice(BigDecimal price) {
         this.price = price;
     }
 
-    public category getCategory() {
+    category getCategory() {
         return productCategory;
     }
 
-    public void setCategory(category productCategory) {
+    void setCategory(category productCategory) {
         this.productCategory = productCategory;
     }
 
-    public BigDecimal getDiscount() {
+    private BigDecimal getDiscount() {
         return discount;
     }
 
@@ -62,7 +62,7 @@ public class Product {
             setDiscountPrice();
         } else if (discount.intValue() == 0) {
             this.discount = discount.ZERO;
-            setDiscountPrice();
+            this.discountPrice = null;
         } else {
             System.out.println("Discount must be in range 0 - 100");
         }
@@ -80,7 +80,7 @@ public class Product {
         return discountPrice;
     }
 
-    public void setDiscountPrice() {
+    private void setDiscountPrice() {
         BigDecimal discount = getDiscount().multiply(((getPrice().divide(new BigDecimal(100)))));
         discount.setScale(2, RoundingMode.CEILING);
         discountPrice = getPrice().subtract(discount);

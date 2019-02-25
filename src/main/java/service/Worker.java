@@ -12,6 +12,7 @@ public class Worker {
     }
 
     public Product getById(long Id) {
+        System.out.println(Storage.allProducts.get(Id));
         return Storage.allProducts.get(Id);
     }
 
@@ -32,4 +33,13 @@ public class Worker {
             }
         }
     }
+
+    public void setDiscountForCategory(category type, BigDecimal discount){
+        for (Product i : Storage.allProducts.values()) {
+            if (i.getCategory() == type) {
+                i.setDiscount(discount);
+            }
+        }
+    }
+
 }
