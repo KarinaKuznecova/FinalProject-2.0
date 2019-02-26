@@ -4,11 +4,11 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public abstract class Product {
-    public static Long productsTotal = 0l;
+    public static Long productsTotal = 0L;
     private String name;
     private Long Id;
     private BigDecimal price;
-    category productCategory;
+    private category productCategory;
     private BigDecimal discount;
     private String description;
     private BigDecimal discountPrice;
@@ -18,7 +18,7 @@ public abstract class Product {
         return productsTotal;
     }
 
-    public String getName() {
+    String getName() {
         return name;
     }
 
@@ -26,7 +26,7 @@ public abstract class Product {
         this.name = name;
     }
 
-    public Long getId() {
+    Long getId() {
         return Id;
     }
 
@@ -35,8 +35,8 @@ public abstract class Product {
         productsTotal++;
     }
 
-    public BigDecimal getPrice() {
-        price.setScale(2, RoundingMode.HALF_UP);
+    BigDecimal getPrice() {
+        price = price.setScale(2, RoundingMode.HALF_UP);
         return price;
     }
 
@@ -56,12 +56,12 @@ public abstract class Product {
         return discount;
     }
 
-    public void setDiscount(BigDecimal discount) {
+    void setDiscount(BigDecimal discount) {
         if (discount.intValue() > 0 && discount.intValue() < 100) {
             this.discount = discount;
             setDiscountPrice();
         } else if (discount.intValue() == 0) {
-            this.discount = discount.ZERO;
+            this.discount = null;
             this.discountPrice = null;
         } else {
             System.out.println("Discount must be in range 0 - 100");
@@ -72,18 +72,21 @@ public abstract class Product {
         return description;
     }
 
-    public void setDescription(String description) {
+    void setDescription(String description) {
         this.description = description;
     }
 
-    public BigDecimal getDiscountPrice() {
+    BigDecimal getDiscountPrice() {
         return discountPrice;
     }
 
     private void setDiscountPrice() {
-        BigDecimal discount = getDiscount().multiply(((getPrice().divide(new BigDecimal(100)))));
-        discount.setScale(2, RoundingMode.CEILING);
+        BigDecimal discount = getDiscount().multiply(((getPrice().divide(new BigDecimal(100),2))));
         discountPrice = getPrice().subtract(discount);
+    }
+
+    static void resetProductsTotal(){
+        productsTotal=0L;
     }
 
     @Override
@@ -97,7 +100,7 @@ public abstract class Product {
                     "discountPrice = " + discountPrice + '\n';
         }
         if (getDescription() != null) {
-            info = info + ", description = " + description;
+            info = info + "description = " + description;
         }
         return info;
     }

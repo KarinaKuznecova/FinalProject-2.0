@@ -1,6 +1,6 @@
 import data.Storage;
+import org.junit.BeforeClass;
 import org.junit.Test;
-import service.Product;
 import service.Worker;
 
 import java.math.BigDecimal;
@@ -12,12 +12,24 @@ import static junit.framework.Assert.*;
 public class ActionTest {
 
     Worker worker = new Worker();
-    Product product = worker.createNew("Chocolate milk", BigDecimal.valueOf(100), DRINKS);
+
+    @BeforeClass
+    public static void before() {
+        ActionTest tester = new ActionTest();
+        tester.before2();
+    }
+
+    void before2() {
+        worker.createNew("First milk", BigDecimal.valueOf(100), DRINKS);
+    }
 
     @Test
     public void shouldCreateNew() {
         System.out.println("Test shouldCreateNew");
-        assertNotNull(worker.getById(0));
+        long startingSize = Storage.allProducts.size()+1;
+        worker.createNew("First milk", BigDecimal.valueOf(100), DRINKS);
+        long actualSize = Storage.allProducts.size();
+        assertEquals(startingSize, actualSize);
     }
 
     @Test
@@ -52,11 +64,19 @@ public class ActionTest {
     @Test
     public void shouldSetDescription() {
         System.out.println("Test shouldSetDescription");
-        product.setDescription("Fresh milk from lovely cows");
-        product.setDiscount(BigDecimal.valueOf(50));
-        String expected = "Fresh milk from lovely cows";
-        String actual = product.getDescription();
-        System.out.println(product);
+        worker.changeProductInfo(0, "Description set by worker");
+        System.out.println(worker.getById(0));
+
+        assertNotNull(worker.getById(0).getDescription());
+    }
+
+    @Test
+    public void shouldClearAll(){
+        System.out.println("ShouldClearAll");
+        int expected = 0;
+        worker.removeAll();
+        int actual = Storage.allProducts.size();
+        before2();
         assertEquals(expected, actual);
     }
 }

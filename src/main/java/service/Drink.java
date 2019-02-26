@@ -2,7 +2,7 @@ package service;
 
 import java.math.BigDecimal;
 
-public class Drink extends Product {
+class Drink extends Product {
 
     Drink(String name, BigDecimal price) {
         setName(name);
