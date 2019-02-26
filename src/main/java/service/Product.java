@@ -26,7 +26,7 @@ public abstract class Product {
         this.name = name;
     }
 
-    Long getId() {
+    public Long getId() {
         return Id;
     }
 
@@ -44,7 +44,7 @@ public abstract class Product {
         this.price = price;
     }
 
-    category getCategory() {
+    public category getCategory() {
         return productCategory;
     }
 

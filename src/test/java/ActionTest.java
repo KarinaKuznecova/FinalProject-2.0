@@ -26,19 +26,19 @@ public class ActionTest {
     @Test
     public void shouldCreateNew() {
         System.out.println("Test shouldCreateNew");
-        long startingSize = Storage.allProducts.size()+1;
+        long startingSize = worker.getStorageSize()+1;
         worker.createNew("First milk", BigDecimal.valueOf(100), DRINKS);
-        long actualSize = Storage.allProducts.size();
+        long actualSize = worker.getStorageSize();
         assertEquals(startingSize, actualSize);
     }
 
     @Test
     public void shouldRemove() {
         System.out.println("Test shouldRemove");
-        long startingSize = Storage.allProducts.size();
+        long startingSize = worker.getStorageSize();
         worker.createNew("Milkshake", BigDecimal.valueOf(18.20), DAIRY);
         worker.deleteById(1);
-        long actualSize = Storage.allProducts.size();
+        long actualSize = worker.getStorageSize();
 
         assertEquals(startingSize, actualSize);
     }
@@ -75,7 +75,7 @@ public class ActionTest {
         System.out.println("ShouldClearAll");
         int expected = 0;
         worker.removeAll();
-        int actual = Storage.allProducts.size();
+        int actual = worker.getStorageSize();
         before2();
         assertEquals(expected, actual);
     }
