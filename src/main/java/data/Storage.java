@@ -4,12 +4,14 @@ import service.Product;
 import service.category;
 import service.Worker;
 
+import java.io.*;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
+import static service.Product.updateProductsTotal;
+
 public class Storage {
-    //public static Map<Long, Product> allProducts = new HashMap<Long,Product>();
     private Map<Long, Product> allProducts = new HashMap<Long,Product>();
 
     public void putNewProduct(Long Id, Product product){
@@ -53,5 +55,39 @@ public class Storage {
 
     public void removeAll() {
         allProducts.clear();
+    }
+
+    public void saveAll() {
+        try {
+            FileOutputStream fos = new FileOutputStream("productData.ser");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(allProducts);
+
+            oos.close();
+            fos.close();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+        System.out.println("Data saved");
+    }
+
+    public void loadAll() {
+        try {
+            FileInputStream fis = new FileInputStream("productData.ser");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            allProducts = (HashMap) ois.readObject();
+
+            ois.close();
+            fis.close();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+            return;
+        } catch (ClassNotFoundException c) {
+            System.out.println("Class not found");
+            c.printStackTrace();
+            return;
+        }
+        updateProductsTotal();
+        System.out.println("Data updated");
     }
 }

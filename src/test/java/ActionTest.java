@@ -1,4 +1,3 @@
-import data.Storage;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import service.Worker;
@@ -64,7 +63,7 @@ public class ActionTest {
     @Test
     public void shouldSetDescription() {
         System.out.println("Test shouldSetDescription");
-        worker.changeProductInfo(0, "Description set by worker");
+        worker.changeProductDescription(0, "Description set by worker");
         System.out.println(worker.getById(0));
 
         assertNotNull(worker.getById(0).getDescription());

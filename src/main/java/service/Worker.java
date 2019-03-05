@@ -8,8 +8,8 @@ public class Worker {
     static Storage storage = new Storage();
 
     public void createNew(String name, BigDecimal price, category type) {
-        String typeString = type.toString();
-        category.valueOf(typeString).createNew(name, price);
+        ProductCreator creator = new ProductCreator();
+        creator.createNew(name, price, type);
     }
 
     public Product getById(long Id) {
@@ -45,12 +45,16 @@ public class Worker {
     }
 
     public void setDiscountForCategory(category type, BigDecimal discount) {
-        storage.setDiscountForCategory(type,discount);
+        storage.setDiscountForCategory(type, discount);
     }
 
-    public void changeProductInfo(long Id, String description) {
+    public void changeProductDescription(long Id, String description) {
         Product product = getById(Id);
         product.setDescription(description);
+    }
+
+    public void changeName(long Id, String name) {
+        storage.getById(Id).setName(name);
     }
 
     public void removeAll() {
@@ -58,7 +62,15 @@ public class Worker {
         Product.resetProductsTotal();
     }
 
-    public int getStorageSize(){
+    public int getStorageSize() {
         return storage.getStorageSize();
+    }
+
+    public void saveAll(){
+        storage.saveAll();
+    }
+
+    public void loadAll(){
+        storage.loadAll();
     }
 }

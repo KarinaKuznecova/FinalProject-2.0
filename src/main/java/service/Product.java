@@ -18,8 +18,9 @@ public abstract class Product {
         return productsTotal;
     }
 
-    String getName() {
-        return name;
+    public static void updateProductsTotal(){
+        Worker worker = new Worker();
+        productsTotal = (long)worker.getStorageSize();
     }
 
     void setName(String name) {
@@ -81,12 +82,12 @@ public abstract class Product {
     }
 
     private void setDiscountPrice() {
-        BigDecimal discount = getDiscount().multiply(((getPrice().divide(new BigDecimal(100),2))));
-        discountPrice = getPrice().subtract(discount);
+        BigDecimal discount = getDiscount().multiply(((getPrice().divide(new BigDecimal(100)))));
+        discountPrice = getPrice().subtract(discount).setScale(2, RoundingMode.CEILING);
     }
 
-    static void resetProductsTotal(){
-        productsTotal=0L;
+    static void resetProductsTotal() {
+        productsTotal = 0L;
     }
 
     @Override
