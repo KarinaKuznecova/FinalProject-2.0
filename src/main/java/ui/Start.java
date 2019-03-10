@@ -36,33 +36,43 @@ public class Start {
         switch (userPickedNumber) {
             case 1:
                 newProductMenu();
+                mainMenu();
                 break;
             case 2:
                 getByIdMenu();
+                mainMenu();
                 break;
             case 3:
                 listAllMenu();
+                mainMenu();
                 break;
             case 4:
                 removeById();
+                mainMenu();
                 break;
             case 5:
                 listByCategoryMenu();
+                mainMenu();
                 break;
             case 6:
                 discountForCategoryMenu();
+                mainMenu();
                 break;
             case 7:
                 changeProductInfoMenu();
+                mainMenu();
                 break;
             case 8:
                 removeAllMenu();
+                mainMenu();
                 break;
             case 9:
                 worker.saveAll();
+                mainMenu();
                 break;
             case 10:
                 worker.loadAll();
+                mainMenu();
                 break;
             default:
                 System.out.println("Wrong number");
@@ -75,49 +85,35 @@ public class Start {
         String enteredName = reader.getUserInputLine("Enter product name:");
         BigDecimal enteredPrice = BigDecimal.valueOf(reader.getUserInputDouble("Enter product price:"));
         worker.createNew(enteredName, enteredPrice, pickedCategory);
-        System.out.println();
-        mainMenu();
     }
 
     private void getByIdMenu() {
         long Id = (long) reader.getUserInput("Enter product Id:");
         worker.getById(Id);
-        System.out.println();
-        mainMenu();
     }
 
     private void listAllMenu() {
         worker.listAll();
-        System.out.println();
-        mainMenu();
     }
 
     private void removeById() {
         long Id = (long) reader.getUserInput("Enter product Id:");
         worker.deleteById(Id);
-        System.out.println();
-        mainMenu();
     }
 
     private void listByCategoryMenu() {
         category type = categoryChooser();
         worker.listByCategory(type);
-        System.out.println();
-        mainMenu();
     }
 
     private void discountForCategoryMenu() {
         category type = categoryChooser();
         BigDecimal enteredDiscount = BigDecimal.valueOf(reader.getUserInput("Enter discount:"));
         worker.setDiscountForCategory(type, enteredDiscount);
-        System.out.println();
-        mainMenu();
     }
 
     private void removeAllMenu() {
         worker.removeAll();
-        System.out.println();
-        mainMenu();
     }
 
     private void changeProductInfoMenu() {
@@ -143,11 +139,9 @@ public class Start {
                 break;
             default:
                 System.out.println("Wrong number");
-                mainMenu();
+                changeProductInfoMenu();
         }
         System.out.println("Information is updated");
-        System.out.println();
-        mainMenu();
     }
 
     private int changeProductInfoMenuStep2() {
@@ -197,7 +191,7 @@ public class Start {
                 myChoose = category.FISH;
             default:
                 System.out.println("Wrong number");
-                mainMenu();
+                categoryChooser();
         }
         return myChoose;
     }

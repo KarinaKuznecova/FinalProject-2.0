@@ -10,7 +10,7 @@ import static junit.framework.Assert.*;
 
 public class ActionTest {
 
-    Worker worker = new Worker();
+    private Worker worker = new Worker();
 
     @BeforeClass
     public static void before() {

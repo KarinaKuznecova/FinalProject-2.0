@@ -1,9 +1,10 @@
 package service;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public abstract class Product {
+public abstract class Product implements Serializable {
     public static Long productsTotal = 0L;
     private String name;
     private Long Id;
