@@ -66,11 +66,11 @@ public class Worker {
         return storage.getStorageSize();
     }
 
-    public void saveAll(){
+    public void saveAll() {
         storage.saveAll();
     }
 
-    public void loadAll(){
+    public void loadAll() {
         storage.loadAll();
     }
 }

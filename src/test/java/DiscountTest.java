@@ -62,7 +62,7 @@ public class DiscountTest {
     @Test
     public void shouldSetDiscountForCategory() {
         System.out.println("Test shouldSetDiscountForCategory");
-        double expected = (worker.getPriceById(0).divide(new BigDecimal(2),2)).doubleValue();
+        double expected = (worker.getPriceById(0).divide(new BigDecimal(2), 2)).doubleValue();
         worker.setDiscountForCategory(DRINKS, BigDecimal.valueOf(50));
         double actual = worker.getDiscountPriceById(0).doubleValue();
         assertEquals(expected, actual);

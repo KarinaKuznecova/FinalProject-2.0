@@ -4,9 +4,9 @@ import java.math.BigDecimal;
 
 import static service.Worker.storage;
 
-public class ProductCreator {
+class ProductCreator {
 
-    public void createNew(String name, BigDecimal price, category type) {
+    void createNew(String name, BigDecimal price, category type) {
         switch (type) {
             case FRUIT:
                 Fruit fruit = new Fruit(name, price);

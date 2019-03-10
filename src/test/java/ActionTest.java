@@ -25,8 +25,8 @@ public class ActionTest {
     @Test
     public void shouldCreateNew() {
         System.out.println("Test shouldCreateNew");
-        long startingSize = worker.getStorageSize()+1;
-        worker.createNew("First milk", BigDecimal.valueOf(100), DRINKS);
+        long startingSize = worker.getStorageSize() + 1;
+        worker.createNew("Apple", BigDecimal.valueOf(100), FRUIT);
         long actualSize = worker.getStorageSize();
         assertEquals(startingSize, actualSize);
     }
@@ -47,16 +47,16 @@ public class ActionTest {
         System.out.println("Test shouldListCategory");
         worker.createNew("Apple Juice", BigDecimal.valueOf(20), DRINKS);
         worker.createNew("Extra Fresh Milk", BigDecimal.valueOf(210), DAIRY);
-        worker.createNew("Water", BigDecimal.valueOf(20), DRINKS);
+        worker.createNew("Candy", BigDecimal.valueOf(20), SWEETS);
         worker.listByCategory(DRINKS);
     }
 
     @Test
     public void listAll() {
         System.out.println("Test shouldListAll");
-        worker.createNew("Fresh Juice", BigDecimal.valueOf(20), DRINKS);
-        worker.createNew("Cheese", BigDecimal.valueOf(210), DAIRY);
-        worker.createNew("Whiskey", BigDecimal.valueOf(20), DRINKS);
+        worker.createNew("Salmon", BigDecimal.valueOf(20), FISH);
+        worker.createNew("Chicken", BigDecimal.valueOf(210), MEAT);
+        worker.createNew("Cucumber", BigDecimal.valueOf(20), VEGETABLE);
         worker.listAll();
     }
 
@@ -70,7 +70,7 @@ public class ActionTest {
     }
 
     @Test
-    public void shouldClearAll(){
+    public void shouldClearAll() {
         System.out.println("ShouldClearAll");
         int expected = 0;
         worker.removeAll();

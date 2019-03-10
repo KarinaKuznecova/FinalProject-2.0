@@ -4,10 +4,10 @@ import service.Worker;
 import service.category;
 
 import java.math.BigDecimal;
-import java.util.Scanner;
 
 public class Start {
     private Worker worker = new Worker();
+    private Reader reader = new Reader();
 
     public static void main(String[] args) {
         System.out.println("Welcome");
@@ -28,41 +28,8 @@ public class Start {
         System.out.println("8. Clear product list");
         System.out.println("9. Save product list");
         System.out.println("10. Load product list");
-        int pickedNumber = getUserInput();
+        int pickedNumber = reader.getUserInput("Enter a number: ");
         menuSelected(pickedNumber);
-    }
-
-    private int getUserInput() {
-        Scanner sc = new Scanner(System.in);
-        String userInputLine = sc.next();
-        try {
-            return Integer.parseInt(userInputLine);
-        } catch (NumberFormatException ex) {
-            return 0;
-        }
-    }
-
-    private String getUserInputLine(String prompt) {
-        System.out.println(prompt + "  ");
-        Scanner sc = new Scanner(System.in);
-        String inputLine = sc.nextLine();
-        if (inputLine.length() == 0) {
-            System.out.println("Try again");
-            mainMenu();
-        }
-        return inputLine;
-    }
-
-    private double getUserInputDouble(String prompt) {
-        System.out.println(prompt + "  ");
-        Scanner sc = new Scanner(System.in);
-        try {
-            return sc.nextDouble();
-        } catch (NumberFormatException ex) {
-            System.out.println("Something wrong");
-            mainMenu();
-        }
-        return 0;
     }
 
     private void menuSelected(int userPickedNumber) {
@@ -105,35 +72,29 @@ public class Start {
 
     private void newProductMenu() {
         category pickedCategory = categoryChooser();
-        String enteredName = getUserInputLine("Enter product name:");
-        BigDecimal enteredPrice = BigDecimal.valueOf(getUserInputDouble("Enter product price:"));
+        String enteredName = reader.getUserInputLine("Enter product name:");
+        BigDecimal enteredPrice = BigDecimal.valueOf(reader.getUserInputDouble("Enter product price:"));
         worker.createNew(enteredName, enteredPrice, pickedCategory);
-
         System.out.println();
         mainMenu();
     }
 
     private void getByIdMenu() {
-        System.out.println("Enter product Id:");
-        long Id = (long) getUserInput();
+        long Id = (long) reader.getUserInput("Enter product Id:");
         worker.getById(Id);
-
         System.out.println();
         mainMenu();
     }
 
     private void listAllMenu() {
         worker.listAll();
-
         System.out.println();
         mainMenu();
     }
 
     private void removeById() {
-        System.out.println("Enter product Id:");
-        long Id = (long) getUserInput();
+        long Id = (long) reader.getUserInput("Enter product Id:");
         worker.deleteById(Id);
-
         System.out.println();
         mainMenu();
     }
@@ -141,48 +102,43 @@ public class Start {
     private void listByCategoryMenu() {
         category type = categoryChooser();
         worker.listByCategory(type);
-
         System.out.println();
         mainMenu();
     }
 
     private void discountForCategoryMenu() {
         category type = categoryChooser();
-        System.out.println("Enter discount:");
-        BigDecimal enteredDiscount = BigDecimal.valueOf(getUserInput());
+        BigDecimal enteredDiscount = BigDecimal.valueOf(reader.getUserInput("Enter discount:"));
         worker.setDiscountForCategory(type, enteredDiscount);
-
         System.out.println();
         mainMenu();
     }
 
     private void removeAllMenu() {
         worker.removeAll();
-
         System.out.println();
         mainMenu();
     }
 
     private void changeProductInfoMenu() {
-        System.out.println("Enter Id");
-        long id = (long) getUserInput();
+        long id = (long) reader.getUserInput("Enter product Id");
         worker.getById(id);
         int pickedAction = changeProductInfoMenuStep2();
         switch (pickedAction) {
             case 1:
-                String newName = getUserInputLine("Enter new name");
+                String newName = reader.getUserInputLine("Enter new name");
                 worker.changeName(id, newName);
                 break;
             case 2:
-                BigDecimal newPrice = BigDecimal.valueOf(getUserInputDouble("Enter new price"));
+                BigDecimal newPrice = BigDecimal.valueOf(reader.getUserInputDouble("Enter new price"));
                 worker.setPriceById(id, newPrice);
                 break;
             case 3:
-                BigDecimal newDiscount = BigDecimal.valueOf(getUserInputDouble("Enter new discount"));
+                BigDecimal newDiscount = BigDecimal.valueOf(reader.getUserInputDouble("Enter new discount"));
                 worker.setDiscountById(id, newDiscount);
                 break;
             case 4:
-                String newDescription = getUserInputLine("Enter new description");
+                String newDescription = reader.getUserInputLine("Enter new description");
                 worker.changeProductDescription(id, newDescription);
                 break;
             default:
@@ -202,7 +158,7 @@ public class Start {
         System.out.println("3. Set Discount");
         System.out.println("4. Change description");
         System.out.println();
-        return getUserInput();
+        return reader.getUserInput("Enter a number: ");
     }
 
     private category categoryChooser() {
@@ -216,7 +172,7 @@ public class Start {
         System.out.println("5. " + category.MEAT);
         System.out.println("6. " + category.SWEETS);
         System.out.println("7. " + category.FISH);
-        int enteredCategory = getUserInput();
+        int enteredCategory = reader.getUserInput("Enter a number: ");
 
         switch (enteredCategory) {
             case 1:

@@ -12,9 +12,9 @@ import java.util.Map;
 import static service.Product.updateProductsTotal;
 
 public class Storage {
-    private Map<Long, Product> allProducts = new HashMap<Long,Product>();
+    private Map<Long, Product> allProducts = new HashMap<Long, Product>();
 
-    public void putNewProduct(Long Id, Product product){
+    public void putNewProduct(Long Id, Product product) {
         allProducts.put(Id, product);
     }
 
@@ -28,9 +28,9 @@ public class Storage {
         }
     }
 
-    public void listByCategory(category type){
+    public void listByCategory(category type) {
         for (Product i : allProducts.values()) {
-            if (i.getCategory() == type){
+            if (i.getCategory() == type) {
                 System.out.println(i);
             }
         }
@@ -39,17 +39,17 @@ public class Storage {
     public void setDiscountForCategory(category type, BigDecimal discount) {
         for (Product i : allProducts.values()) {
             Worker worker = new Worker();
-            if (i.getCategory() == type){
+            if (i.getCategory() == type) {
                 worker.setDiscountById(i.getId(), discount);
-                }
             }
         }
+    }
 
     public void deleteById(long Id) {
         allProducts.remove(Id);
     }
 
-    public int getStorageSize(){
+    public int getStorageSize() {
         return allProducts.size();
     }
 
