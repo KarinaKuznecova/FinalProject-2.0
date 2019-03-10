@@ -8,7 +8,7 @@ class Reader {
         Scanner sc = new Scanner(System.in);
         try {
             return sc.nextInt();
-        } catch (NumberFormatException ex) {
+        } catch (Exception ex) {
             System.out.println("Something wrong, try again");
             getUserInput(prompt);
         }
@@ -31,7 +31,7 @@ class Reader {
         Scanner sc = new Scanner(System.in);
         try {
             return sc.nextDouble();
-        } catch (NumberFormatException ex) {
+        } catch (Exception ex) {
             System.out.println("Something wrong, try again");
             getUserInputDouble(prompt);
         }

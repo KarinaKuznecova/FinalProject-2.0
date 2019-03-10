@@ -5,8 +5,7 @@ import service.Worker;
 import java.math.BigDecimal;
 
 import static service.category.*;
-import static org.junit.Assert.assertNotNull;
-import static junit.framework.Assert.*;
+import static org.junit.Assert.*;
 
 public class ActionTest {
 

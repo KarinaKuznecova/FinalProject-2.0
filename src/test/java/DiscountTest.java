@@ -1,18 +1,16 @@
-
 import org.junit.BeforeClass;
-import service.Product;
-
 import org.junit.Test;
+import service.Product;
 import service.Worker;
 
 import static service.category.DRINKS;
-import static junit.framework.Assert.*;
+import static org.junit.Assert.*;
 
 import java.math.BigDecimal;
 
 public class DiscountTest {
 
-    Worker worker = new Worker();
+    private Worker worker = new Worker();
 
     @BeforeClass
     public static void before() {
@@ -20,17 +18,13 @@ public class DiscountTest {
         tester.before2();
     }
 
-    void before2() {
-        worker.createNew("First drink", BigDecimal.valueOf(100), DRINKS);
-    }
-
     @Test
     public void testDiscount() {
         System.out.println("Test discount");
         worker.setPriceById(0, BigDecimal.valueOf(100));
         worker.setDiscountById(0, BigDecimal.valueOf(30));
-        Double actual = worker.getDiscountPriceById(0).doubleValue();
-        assertEquals(70.0, actual);
+        double actual = worker.getDiscountPriceById(0).doubleValue();
+        assertEquals(70.0, actual, 1e-15);
     }
 
     @Test
@@ -47,7 +41,6 @@ public class DiscountTest {
         long expected = Product.productsTotal + 1;
         worker.createNew("Grape Juice", BigDecimal.valueOf(20), DRINKS);
         long actual = Product.getProductsTotal();
-
         assertEquals(expected, actual);
     }
 
@@ -65,6 +58,6 @@ public class DiscountTest {
         double expected = (worker.getPriceById(0).divide(new BigDecimal(2), 2)).doubleValue();
         worker.setDiscountForCategory(DRINKS, BigDecimal.valueOf(50));
         double actual = worker.getDiscountPriceById(0).doubleValue();
-        assertEquals(expected, actual);
+        assertEquals(expected, actual, 1e-15);
     }
 }
