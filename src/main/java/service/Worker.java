@@ -12,49 +12,49 @@ public class Worker {
         creator.createNew(name, price, type);
     }
 
-    public Product getById(long Id) {
-        return storage.getById(Id);
+    public Product getById(long id) {
+        return storage.getById(id);
     }
 
     public void listAll() {
         storage.printAll();
     }
 
-    public void deleteById(long Id) {
-        storage.deleteById(Id);
+    public void deleteById(long id) {
+        storage.deleteById(id);
     }
 
     public void listByCategory(category type) {
         storage.listByCategory(type);
     }
 
-    public void setDiscountById(long Id, BigDecimal discount) {
-        storage.getById(Id).setDiscount(discount);
+    public void setDiscountById(long id, BigDecimal discount) {
+        storage.getById(id).setDiscount(discount);
     }
 
-    public void setPriceById(long Id, BigDecimal price) {
-        storage.getById(Id).setPrice(price);
+    public void setPriceById(long id, BigDecimal price) {
+        storage.getById(id).setPrice(price);
     }
 
-    public BigDecimal getPriceById(long Id) {
-        return storage.getById(Id).getPrice();
+    public BigDecimal getPriceById(long id) {
+        return storage.getById(id).getPrice();
     }
 
-    public BigDecimal getDiscountPriceById(long Id) {
-        return storage.getById(Id).getDiscountPrice();
+    public BigDecimal getDiscountPriceById(long id) {
+        return storage.getById(id).getDiscountPrice();
     }
 
     public void setDiscountForCategory(category type, BigDecimal discount) {
         storage.setDiscountForCategory(type, discount);
     }
 
-    public void changeProductDescription(long Id, String description) {
-        Product product = getById(Id);
+    public void changeProductDescription(long id, String description) {
+        Product product = getById(id);
         product.setDescription(description);
     }
 
-    public void changeName(long Id, String name) {
-        storage.getById(Id).setName(name);
+    public void changeName(long id, String name) {
+        storage.getById(id).setName(name);
     }
 
     public void removeAll() {

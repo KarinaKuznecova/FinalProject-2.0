@@ -7,7 +7,7 @@ import java.math.RoundingMode;
 public abstract class Product implements Serializable {
     public static Long productsTotal = 0L;
     private String name;
-    private Long Id;
+    private Long id;
     private BigDecimal price;
     private category productCategory;
     private BigDecimal discount;
@@ -29,11 +29,11 @@ public abstract class Product implements Serializable {
     }
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     void setId() {
-        Id = productsTotal;
+        id = productsTotal;
         productsTotal++;
     }
 

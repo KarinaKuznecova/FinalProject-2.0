@@ -14,12 +14,12 @@ import static service.Product.updateProductsTotal;
 public class Storage {
     private Map<Long, Product> allProducts = new HashMap<Long, Product>();
 
-    public void putNewProduct(Long Id, Product product) {
-        allProducts.put(Id, product);
+    public void putNewProduct(Long id, Product product) {
+        allProducts.put(id, product);
     }
 
-    public Product getById(long Id) {
-        return allProducts.get(Id);
+    public Product getById(long id) {
+        return allProducts.get(id);
     }
 
     public void printAll() {
@@ -45,8 +45,8 @@ public class Storage {
         }
     }
 
-    public void deleteById(long Id) {
-        allProducts.remove(Id);
+    public void deleteById(long id) {
+        allProducts.remove(id);
     }
 
     public int getStorageSize() {

@@ -88,8 +88,8 @@ public class Start {
     }
 
     private void getByIdMenu() {
-        long Id = (long) reader.getUserInput("Enter product Id:");
-        worker.getById(Id);
+        long id = (long) reader.getUserInput("Enter product Id:");
+        worker.getById(id);
     }
 
     private void listAllMenu() {
@@ -97,8 +97,8 @@ public class Start {
     }
 
     private void removeById() {
-        long Id = (long) reader.getUserInput("Enter product Id:");
-        worker.deleteById(Id);
+        long id = (long) reader.getUserInput("Enter product Id:");
+        worker.deleteById(id);
     }
 
     private void listByCategoryMenu() {
