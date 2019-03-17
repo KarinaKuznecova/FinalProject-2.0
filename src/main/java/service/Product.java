@@ -14,7 +14,6 @@ public abstract class Product implements Serializable {
     private String description;
     private BigDecimal discountPrice;
 
-
     public static Long getProductsTotal() {
         return productsTotal;
     }

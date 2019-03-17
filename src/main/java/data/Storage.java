@@ -2,10 +2,8 @@ package data;
 
 import service.Product;
 import service.category;
-import service.Worker;
 
 import java.io.*;
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,15 +30,6 @@ public class Storage {
         for (Product i : allProducts.values()) {
             if (i.getCategory() == type) {
                 System.out.println(i);
-            }
-        }
-    }
-
-    public void setDiscountForCategory(category type, BigDecimal discount) {
-        for (Product i : allProducts.values()) {
-            Worker worker = new Worker();
-            if (i.getCategory() == type) {
-                worker.setDiscountById(i.getId(), discount);
             }
         }
     }
@@ -76,9 +65,10 @@ public class Storage {
             FileInputStream fis = new FileInputStream("productData.ser");
             ObjectInputStream ois = new ObjectInputStream(fis);
             allProducts = (HashMap) ois.readObject();
-
             ois.close();
             fis.close();
+            updateProductsTotal();
+            System.out.println("Data updated");
         } catch (IOException ioe) {
             ioe.printStackTrace();
             return;
@@ -87,7 +77,5 @@ public class Storage {
             c.printStackTrace();
             return;
         }
-        updateProductsTotal();
-        System.out.println("Data updated");
     }
 }

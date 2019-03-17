@@ -45,7 +45,11 @@ public class Worker {
     }
 
     public void setDiscountForCategory(category type, BigDecimal discount) {
-        storage.setDiscountForCategory(type, discount);
+        for (int i = 0; i <= Product.productsTotal; i ++){
+            if (storage.getById(i).getCategory() == type){
+                setDiscountById(i, discount);
+            }
+        }
     }
 
     public void changeProductDescription(long id, String description) {
