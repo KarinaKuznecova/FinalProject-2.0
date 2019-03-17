@@ -14,8 +14,12 @@ public class DiscountTest {
 
     @BeforeClass
     public static void before() {
-        ActionTest tester = new ActionTest();
+        DiscountTest tester = new DiscountTest();
         tester.before2();
+    }
+
+    void before2() {
+        worker.createNew("First milk", BigDecimal.valueOf(100), DRINKS);
     }
 
     @Test
