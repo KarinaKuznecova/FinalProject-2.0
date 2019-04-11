@@ -16,8 +16,12 @@ public class Storage {
         allProducts.put(id, product);
     }
 
-    public Product getById(long id) {
+    public Product getById(long id) throws ProductNotFoundException {
+        if (!allProducts.containsKey(id)) {
+            throw new ProductNotFoundException("Product with id: " + id + " not found");
+        }
         return allProducts.get(id);
+
     }
 
     public void printAll() {
@@ -34,7 +38,10 @@ public class Storage {
         }
     }
 
-    public void deleteById(long id) {
+    public void deleteById(long id) throws ProductNotFoundException {
+        if (!allProducts.containsKey(id)) {
+            throw new ProductNotFoundException("Product with id: " + id + " not found");
+        }
         allProducts.remove(id);
     }
 

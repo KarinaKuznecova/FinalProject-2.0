@@ -1,5 +1,6 @@
 package service;
 
+import data.ProductNotFoundException;
 import data.Storage;
 
 import java.math.BigDecimal;
@@ -13,7 +14,12 @@ public class Worker {
     }
 
     public Product getById(long id) {
-        return storage.getById(id);
+        try {
+            return storage.getById(id);
+        } catch (ProductNotFoundException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return null;
     }
 
     public void listAll() {
@@ -21,7 +27,11 @@ public class Worker {
     }
 
     public void deleteById(long id) {
-        storage.deleteById(id);
+        try {
+            storage.deleteById(id);
+        } catch (ProductNotFoundException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     public void listByCategory(category type) {
@@ -45,7 +55,7 @@ public class Worker {
     }
 
     public void setDiscountForCategory(category type, BigDecimal discount) {
-        for (int i = 0; i <= Product.productsTotal; i++) {
+        for (int i = 0; i < Product.productsTotal; i++) {
             if (storage.getById(i) != null && storage.getById(i).getCategory() == type) {
                 setDiscountById(i, discount);
             }
