@@ -76,6 +76,10 @@ public class Worker {
         storage.getById(id).setName(name);
     }
 
+    public String getNameById(long id){
+        return getById(id).getName();
+    }
+
     public void removeAll() {
         storage.removeAll();
         Product.resetProductsTotal();

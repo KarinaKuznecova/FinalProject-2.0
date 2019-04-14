@@ -22,6 +22,10 @@ public abstract class Product implements Serializable {
         this.name = name;
     }
 
+    String getName() {
+        return name;
+    }
+
     Long getId() {
         return id;
     }

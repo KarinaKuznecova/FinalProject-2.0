@@ -1,3 +1,4 @@
+import data.ProductNotFoundException;
 import data.Storage;
 import org.junit.After;
 import org.junit.Before;
@@ -25,7 +26,6 @@ public class ActionTest {
 
     @Test
     public void shouldCreateNew() {
-        System.out.println("Test shouldCreateNew");
         long startingSize = worker.getStorageSize() + 1;
         worker.createNew("Apple", BigDecimal.valueOf(100), FRUIT);
         long actualSize = worker.getStorageSize();
@@ -34,7 +34,6 @@ public class ActionTest {
 
     @Test
     public void shouldRemove() {
-        System.out.println("Test shouldRemove");
         long startingSize = worker.getStorageSize();
         worker.createNew("Milkshake", BigDecimal.valueOf(18.20), DAIRY);
         worker.deleteById(1);
@@ -62,7 +61,6 @@ public class ActionTest {
 
     @Test
     public void shouldSetDescription() {
-        System.out.println("Test shouldSetDescription");
         worker.changeProductDescription(0, "Description set by worker");
         System.out.println(worker.getById(0));
 
@@ -70,11 +68,21 @@ public class ActionTest {
     }
 
     @Test
+    public void shouldChangeName(){
+        worker.changeName(0, "Not Milk");
+        assertEquals("Not Milk", worker.getNameById(0));
+    }
+
+    @Test
     public void shouldClearAll() {
-        System.out.println("ShouldClearAll");
         int expected = 0;
         worker.removeAll();
         int actual = worker.getStorageSize();
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldBeNotFound(){
+        assertNull(worker.getById(9999999));
     }
 }
