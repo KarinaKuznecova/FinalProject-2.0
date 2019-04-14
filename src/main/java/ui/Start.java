@@ -1,12 +1,13 @@
 package ui;
 
+import data.Storage;
 import service.Worker;
 import service.category;
 
 import java.math.BigDecimal;
 
 public class Start {
-    private Worker worker = new Worker();
+    private Worker worker = new Worker(new Storage());
     private Reader reader = new Reader();
 
     public static void main(String[] args) {

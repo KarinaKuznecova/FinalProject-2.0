@@ -18,11 +18,6 @@ public abstract class Product implements Serializable {
         return productsTotal;
     }
 
-    public static void updateProductsTotal() {
-        Worker worker = new Worker();
-        productsTotal = (long) worker.getStorageSize();
-    }
-
     void setName(String name) {
         this.name = name;
     }

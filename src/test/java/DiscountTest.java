@@ -1,4 +1,6 @@
-import org.junit.BeforeClass;
+import data.Storage;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import service.Product;
 import service.Worker;
@@ -9,19 +11,18 @@ import static org.junit.Assert.*;
 import java.math.BigDecimal;
 
 public class DiscountTest {
+    private Worker worker;
 
-    private Worker worker = new Worker();
-
-    @BeforeClass
-    public static void before() {
-        DiscountTest tester = new DiscountTest();
-        tester.before2();
+    @Before
+    public void before() {
+        worker = new Worker(new Storage());
+        worker.createNew("Milk", BigDecimal.valueOf(20), DRINKS);
     }
 
-    void before2() {
-        worker.createNew("First milk", BigDecimal.valueOf(100), DRINKS);
+    @After
+    public void after(){
+        worker.removeAll();
     }
-
     @Test
     public void testDiscount() {
         System.out.println("Test discount");
@@ -34,7 +35,6 @@ public class DiscountTest {
     @Test
     public void testDiscount2() {
         System.out.println("Test Discount 2");
-        worker.setDiscountById(0, BigDecimal.valueOf(0));
         worker.setDiscountById(0, BigDecimal.valueOf(130));
         assertNull(worker.getDiscountPriceById(0));
     }
@@ -51,7 +51,6 @@ public class DiscountTest {
     @Test
     public void shouldSetDiscountToZero() {
         System.out.println("Test shouldSetDiscountToZero");
-        worker.setDiscountById(0, BigDecimal.valueOf(20));
         worker.setDiscountById(0, BigDecimal.valueOf(0));
         assertNull(worker.getDiscountPriceById(0));
     }

@@ -2,43 +2,28 @@ package service;
 
 import java.math.BigDecimal;
 
-import static service.Worker.storage;
-
 class ProductCreator {
 
-    void createNew(String name, BigDecimal price, category type) {
+    Product createNew(String name, BigDecimal price, category type) {
         switch (type) {
             case FRUIT:
-                Fruit fruit = new Fruit(name, price);
-                storage.putNewProduct(fruit.getId(), fruit);
-                break;
+                return new Fruit(name, price);
             case VEGETABLE:
-                Vegetable vegetable = new Vegetable(name, price);
-                storage.putNewProduct(vegetable.getId(), vegetable);
-                break;
+                return new Vegetable(name, price);
             case DRINKS:
-                Drink drink = new Drink(name, price);
-                storage.putNewProduct(drink.getId(), drink);
-                break;
+                return new Drink(name, price);
             case DAIRY:
-                Dairy dairy = new Dairy(name, price);
-                storage.putNewProduct(dairy.getId(), dairy);
-                break;
+                return new Dairy(name, price);
             case MEAT:
-                Meat meat = new Meat(name, price);
-                storage.putNewProduct(meat.getId(), meat);
-                break;
+                return new Meat(name, price);
             case FISH:
-                Fish fish = new Fish(name, price);
-                storage.putNewProduct(fish.getId(), fish);
-                break;
+                return new Fish(name, price);
             case SWEETS:
-                Sweets sweets = new Sweets(name, price);
-                storage.putNewProduct(sweets.getId(), sweets);
-                break;
+                return new Sweets(name, price);
             default:
                 System.out.println("Something wrong");
                 break;
         }
+        return null;
     }
 }

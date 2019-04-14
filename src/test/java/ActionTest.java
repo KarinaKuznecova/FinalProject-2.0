@@ -1,4 +1,6 @@
-import org.junit.BeforeClass;
+import data.Storage;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import service.Worker;
 
@@ -8,17 +10,17 @@ import static service.category.*;
 import static org.junit.Assert.*;
 
 public class ActionTest {
+    private Worker worker;
 
-    private Worker worker = new Worker();
-
-    @BeforeClass
-    public static void before() {
-        ActionTest tester = new ActionTest();
-        tester.before2();
+    @Before
+    public void before() {
+        worker = new Worker(new Storage());
+        worker.createNew("Milk", BigDecimal.valueOf(20), DRINKS);
     }
 
-    void before2() {
-        worker.createNew("First milk", BigDecimal.valueOf(100), DRINKS);
+    @After
+    public void after(){
+        worker.removeAll();
     }
 
     @Test
@@ -37,7 +39,6 @@ public class ActionTest {
         worker.createNew("Milkshake", BigDecimal.valueOf(18.20), DAIRY);
         worker.deleteById(1);
         long actualSize = worker.getStorageSize();
-
         assertEquals(startingSize, actualSize);
     }
 
@@ -74,7 +75,6 @@ public class ActionTest {
         int expected = 0;
         worker.removeAll();
         int actual = worker.getStorageSize();
-        before2();
         assertEquals(expected, actual);
     }
 }

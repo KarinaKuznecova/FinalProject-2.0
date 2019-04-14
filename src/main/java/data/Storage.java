@@ -7,8 +7,6 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
-import static service.Product.updateProductsTotal;
-
 public class Storage {
     private Map<Long, Product> allProducts = new HashMap<Long, Product>();
 
@@ -74,7 +72,6 @@ public class Storage {
             allProducts = (HashMap) ois.readObject();
             ois.close();
             fis.close();
-            updateProductsTotal();
             System.out.println("Data updated");
         } catch (IOException ioe) {
             ioe.printStackTrace();

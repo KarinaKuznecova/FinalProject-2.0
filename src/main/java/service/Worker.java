@@ -6,11 +6,16 @@ import data.Storage;
 import java.math.BigDecimal;
 
 public class Worker {
-    static Storage storage = new Storage();
+    private Storage storage;
+
+    public Worker(Storage storage) {
+        this.storage = storage;
+    }
 
     public void createNew(String name, BigDecimal price, category type) {
         ProductCreator creator = new ProductCreator();
-        creator.createNew(name, price, type);
+        Product product = creator.createNew(name, price, type);
+        storage.putNewProduct(product.getId(), product);
     }
 
     public Product getById(long id) {
@@ -80,11 +85,16 @@ public class Worker {
         return storage.getStorageSize();
     }
 
+    private void updateProductsTotal() {
+        Product.productsTotal = (long) getStorageSize();
+    }
+
     public void saveAll() {
         storage.saveAll();
     }
 
     public void loadAll() {
         storage.loadAll();
+        updateProductsTotal();
     }
 }
