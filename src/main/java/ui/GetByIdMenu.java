@@ -8,6 +8,6 @@ class GetByIdMenu implements Action {
     @Override
     public void action(Worker worker) {
         long id = (long) reader.getUserInput("Enter product Id:");
-        worker.getById(id);
+        System.out.println(worker.getById(id));
     }
 }

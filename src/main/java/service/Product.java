@@ -42,6 +42,7 @@ public abstract class Product implements Serializable {
 
     void setPrice(BigDecimal price) {
         this.price = price;
+        setDiscount(BigDecimal.valueOf(0));
     }
 
     public category getCategory() {
