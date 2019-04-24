@@ -1,10 +1,9 @@
 package service;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public abstract class Product implements Serializable {
+public class Product {
     public static Long productsTotal = 0L;
     private String name;
     private Long id;
@@ -13,6 +12,13 @@ public abstract class Product implements Serializable {
     private BigDecimal discount;
     private String description;
     private BigDecimal discountPrice;
+
+    Product(String name, BigDecimal price, category productCategory) {
+        this.name = name;
+        this.price = price;
+        this.productCategory = productCategory;
+        setId();
+    }
 
     public static Long getProductsTotal() {
         return productsTotal;
@@ -30,7 +36,7 @@ public abstract class Product implements Serializable {
         return id;
     }
 
-    void setId() {
+    private void setId() {
         id = productsTotal;
         productsTotal++;
     }
@@ -47,10 +53,6 @@ public abstract class Product implements Serializable {
 
     public category getCategory() {
         return productCategory;
-    }
-
-    void setCategory(category productCategory) {
-        this.productCategory = productCategory;
     }
 
     private BigDecimal getDiscount() {
@@ -82,7 +84,7 @@ public abstract class Product implements Serializable {
     }
 
     private void setDiscountPrice() {
-        BigDecimal discount = getDiscount().multiply(((getPrice().divide(new BigDecimal(100)))));
+        BigDecimal discount = getDiscount().multiply(((getPrice().divide(new BigDecimal("100")))));
         discountPrice = getPrice().subtract(discount).setScale(2, RoundingMode.CEILING);
     }
 
@@ -97,7 +99,7 @@ public abstract class Product implements Serializable {
                 "price = " + price + '\n' +
                 "productCategory = " + productCategory + '\n';
         if (getDiscount() != null && discount.intValue() != 0) {
-            info = info + "discount = " + discount + '\n' +
+            info = info + "discount = " + discount + "%" + '\n' +
                     "discountPrice = " + discountPrice + '\n';
         }
         if (getDescription() != null) {

@@ -13,8 +13,7 @@ public class Worker {
     }
 
     public void createNew(String name, BigDecimal price, category type) {
-        ProductCreator creator = new ProductCreator();
-        Product product = creator.createNew(name, price, type);
+        Product product = new Product(name, price, type);
         storage.putNewProduct(product.getId(), product);
     }
 
@@ -66,6 +65,7 @@ public class Worker {
                     setDiscountById(i, discount);
                 }
             } catch (ProductNotFoundException ex){
+                ex.getMessage();
             }
         }
     }
@@ -90,18 +90,5 @@ public class Worker {
 
     public int getStorageSize() {
         return storage.getStorageSize();
-    }
-
-    private void updateProductsTotal() {
-        Product.productsTotal = (long) getStorageSize();
-    }
-
-    public void saveAll() {
-        storage.saveAll();
-    }
-
-    public void loadAll() {
-        storage.loadAll();
-        updateProductsTotal();
     }
 }

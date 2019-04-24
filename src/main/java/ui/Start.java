@@ -3,13 +3,17 @@ package ui;
 import data.Storage;
 import service.Worker;
 
+import java.util.*;
+
 public class Start {
     private Worker worker = new Worker(new Storage());
     private Reader reader = new Reader();
+    private List<Action> actions = new ArrayList<>();
 
     public static void main(String[] args) {
         System.out.println("Welcome");
         Start starter = new Start();
+        starter.setUp();
         starter.mainMenu();
     }
 
@@ -24,65 +28,29 @@ public class Start {
         System.out.println("6. Set discount for category");
         System.out.println("7. Change product information");
         System.out.println("8. Clear product list");
-        System.out.println("9. Save product list");
-        System.out.println("10. Load product list");
         int pickedNumber = reader.getUserInput("Enter a number: ");
         menuSelected(pickedNumber);
     }
 
+    private void setUp() {
+        actions.add(0, new NewProductMenu());
+        actions.add(1, new GetByIdMenu());
+        actions.add(2, new ListAllMenu());
+        actions.add(3, new RemoveByIdMenu());
+        actions.add(4, new ListByCategoryMenu());
+        actions.add(5, new DiscountForCategoryMenu());
+        actions.add(6, new ChangeProductInfoMenu());
+        actions.add(7, new RemoveAllMenu());
+    }
+
     private void menuSelected(int userPickedNumber) {
-        switch (userPickedNumber) {
-            case 1:
-                NewProductMenu newProductMenu = new NewProductMenu();
-                newProductMenu.action(worker);
-                mainMenu();
-                break;
-            case 2:
-                GetByIdMenu getByIdMenu = new GetByIdMenu();
-                getByIdMenu.action(worker);
-                mainMenu();
-                break;
-            case 3:
-                ListAllMenu listAllMenu = new ListAllMenu();
-                listAllMenu.action(worker);
-                mainMenu();
-                break;
-            case 4:
-                RemoveByIdMenu removeByIdMenu = new RemoveByIdMenu();
-                removeByIdMenu.action(worker);
-                mainMenu();
-                break;
-            case 5:
-                ListByCategoryMenu listByCategoryMenu = new ListByCategoryMenu();
-                listByCategoryMenu.action(worker);
-                mainMenu();
-                break;
-            case 6:
-                DiscountForCategoryMenu discountForCategoryMenu = new DiscountForCategoryMenu();
-                discountForCategoryMenu.action(worker);
-                mainMenu();
-                break;
-            case 7:
-                ChangeProductInfoMenu changeProductInfoMenu = new ChangeProductInfoMenu();
-                changeProductInfoMenu.action(worker);
-                mainMenu();
-                break;
-            case 8:
-                RemoveAllMenu removeAllMenu = new RemoveAllMenu();
-                removeAllMenu.action(worker);
-                mainMenu();
-                break;
-            case 9:
-                worker.saveAll();
-                mainMenu();
-                break;
-            case 10:
-                worker.loadAll();
-                mainMenu();
-                break;
-            default:
-                System.out.println("Wrong number");
-                mainMenu();
+        int index = userPickedNumber - 1;
+        try {
+            actions.get(index).action(worker);
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            System.out.println("Wrong number, try again");
+        } finally {
+            mainMenu();
         }
     }
 }
